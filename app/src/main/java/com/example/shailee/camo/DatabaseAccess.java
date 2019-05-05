@@ -40,13 +40,13 @@ public class DatabaseAccess {
 
     }
     public String getData(String commonName){
-        c=db.rawQuery("select scientific_name,Family,Genus from leaf where Common_name=?",new String[]{"commonName"});
+        c=db.rawQuery("Select scientific_name, family, genus from leaf where common_name = ?",new String[]{"commonName"});
         StringBuffer buffer=new StringBuffer();
         while(c.moveToNext()){
-            String ScientificName=c.getString(0);
+            String scientificName=c.getString(0);
             String Family=c.getString(1);
             String Genus=c.getString(2);
-            buffer.append(" "+ScientificName+ " "+Family+ " "+ Genus);
+            buffer.append(" "+scientificName+ " "+Family+ " "+ Genus);
         }
         return buffer.toString();
 

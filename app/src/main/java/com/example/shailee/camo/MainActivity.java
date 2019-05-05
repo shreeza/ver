@@ -35,12 +35,14 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Button button;
     Button buttonOfQuery;
+    EditText editText;
+    TextView textView;
+
     ImageView imageView;
     Toolbar toolbar;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     DrawerLayout drawerLayout;
-    EditText editText;
-    TextView textView;
+
 
 
 
@@ -51,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
-        buttonOfQuery=(Button)findViewById(R.id.search_button);
-        editText=(EditText)findViewById(R.id.search_plant);
-        textView=(TextView)findViewById(R.id.result);
+
 
 
 
@@ -88,23 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        //arkai button
-        buttonOfQuery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
-                databaseAccess.open();
 
-                //getting string value from edit text
-                String n=editText.getText().toString();
-                String result=databaseAccess.getData(n);
-                textView.setText(result);
-                databaseAccess.close();
-
-
-
-            }
-        });
 
         }
 
@@ -145,6 +129,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.opt_search:
                 setContentView(R.layout.search);
+
+                buttonOfQuery=(Button)findViewById(R.id.search_button);
+                editText=(EditText)findViewById(R.id.search_plant);
+                textView=(TextView)findViewById(R.id.result);
+                //arkai button
+                buttonOfQuery.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseAccess databaseAccess=DatabaseAccess.getInstance(getApplicationContext());
+                        databaseAccess.open();
+
+                        //getting string value from edit text
+                        String n=editText.getText().toString();
+                        String result=databaseAccess.getData(n);
+                        textView.setText(result);
+                        databaseAccess.close();
+
+
+
+                    }
+                });
                 break;
 
 
