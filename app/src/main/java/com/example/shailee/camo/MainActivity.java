@@ -2,6 +2,8 @@ package com.example.shailee.camo;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.ContactsContract;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button buttonOfQuery;
     EditText editText;
     TextView textView;
+    ImageView img;
 
     ImageView imageView;
     Toolbar toolbar;
@@ -133,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonOfQuery=(Button)findViewById(R.id.search_button);
                 editText=(EditText)findViewById(R.id.search_plant);
                 textView=(TextView)findViewById(R.id.result);
+                img=(ImageView)findViewById(R.id.leafImage);
                 //arkai button
                 buttonOfQuery.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -144,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String n=editText.getText().toString();
                         String result=databaseAccess.getData(n);
                         textView.setText(result);
+                        byte[] b=databaseAccess.getImage(n);
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length, options);
+                        img.setImageBitmap(bitmap);
+
+
+
                         databaseAccess.close();
 
 

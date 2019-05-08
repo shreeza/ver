@@ -6,6 +6,9 @@ package com.example.shailee.camo;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
 
 
 public class DatabaseAccess {
@@ -40,15 +43,30 @@ public class DatabaseAccess {
 
     }
     public String getData(String commonName){
-        c=db.rawQuery("Select scientific_name, family, genus from leaf where common_name = ?",new String[]{"commonName"});
+        c=db.rawQuery("Select scientific_name, family, genus,images from leaf where common_name = ?",new String[]{commonName});
         StringBuffer buffer=new StringBuffer();
         while(c.moveToNext()){
             String scientificName=c.getString(0);
             String Family=c.getString(1);
             String Genus=c.getString(2);
-            buffer.append(" "+scientificName+ " "+Family+ " "+ Genus);
+            byte[] b=c.getBlob(3);
+
+
+
+
+
+
+            buffer.append("Scientific Name : "+scientificName+ "\n" +" Family Name :"+Family+ "\n "+"Genus :"+ Genus+"\n"+b);
         }
         return buffer.toString();
+
+    }
+    public byte[] getImage(String commonName){
+        c=db.rawQuery("Select images from leaf where common_name = ?",new String[]{commonName});
+        byte[] b=c.getBlob(0);
+        return b;
+
+
 
     }
 

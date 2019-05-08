@@ -8,7 +8,7 @@
     
     <EditText
         android:id="@+id/search_plant"
-        android:autofillHints="@string/enter"
+        android:hint="@string/enter"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
